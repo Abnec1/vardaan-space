@@ -1,83 +1,44 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: 'Jun 19 2024'
+title: 'Sky log template I use after each session'
+description: 'A practical markdown template for recording weather, seeing, equipment, and post-processing notes.'
+pubDate: 'May 10 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
-Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
+After every clear night, I write one short post with the same structure so I can compare sessions quickly.
 
-## Headings
+## Session snapshot
 
-The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
+- **Date:** 2026-05-10
+- **Location:** Semi-rural terrace, Bortle 6
+- **Transparency / seeing:** 3/5 transparency, 2/5 seeing
+- **Targets:** North America Nebula, Albireo
 
-# H1
+## Equipment
 
-## H2
+- Mount: HEQ5
+- Scope: 72mm refractor
+- Camera: OSC cooled
+- Filter: Dual-band
 
-### H3
+## Capture plan
 
-#### H4
+| Target | Exposure plan | Actual |
+| --- | --- | --- |
+| NGC 7000 | 90 x 120s | 72 x 120s |
+| Albireo | 40 x 30s | 40 x 30s |
 
-##### H5
+## Quick notes
 
-###### H6
+- Guiding settled after recalibration.
+- Dew became an issue after midnight.
+- Framing was easiest using nearby bright stars first.
 
-## Paragraph
+## Processing reminders
 
-Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
-
-Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
-
-## Images
-
-### Syntax
-
-```markdown
-![Alt text](./full/or/relative/path/of/image)
-```
-
-### Output
-
-![blog placeholder](../../assets/blog-placeholder-about.jpg)
-
-## Blockquotes
-
-The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
-
-### Blockquote without attribution
-
-#### Syntax
-
-```markdown
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
-> **Note** that you can use _Markdown syntax_ within a blockquote.
-```
-
-#### Output
-
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
-> **Note** that you can use _Markdown syntax_ within a blockquote.
-
-### Blockquote with attribution
-
-#### Syntax
-
-```markdown
-> Don't communicate by sharing memory, share memory by communicating.<br>
-> — <cite>Rob Pike[^1]</cite>
-```
-
-#### Output
-
-> Don't communicate by sharing memory, share memory by communicating.<br>
-> — <cite>Rob Pike[^1]</cite>
-
-[^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
-
-## Tables
-
-### Syntax
+1. Run stronger gradient correction before stretching.
+2. Keep stars protected early.
+3. Save intermediate versions more often.
 
 ```markdown
 | Italics   | Bold     | Code   |

@@ -11,46 +11,54 @@ type Props = CollectionEntry<'blog'>['data'];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
+<!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
 			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+				width: min(1020px, calc(100% - 2rem));
+			}
+			article {
+				display: grid;
+				gap: 1.2rem;
 			}
 			.hero-image {
-				width: 100%;
+				overflow: hidden;
+				border: 1px solid rgba(var(--border), 1);
+				border-radius: 18px;
+				box-shadow: var(--box-shadow);
 			}
 			.hero-image img {
 				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+				width: 100%;
 			}
 			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
+				padding: 1rem 1.1rem;
+				border: 1px solid rgba(var(--border), 1);
+				border-radius: 16px;
+				background: rgba(var(--surface), 0.9);
 			}
 			.title h1 {
-				margin: 0 0 0.5em 0;
+				margin-bottom: 0.35rem;
+			}
+			.summary {
+				margin: 0;
+				color: rgba(var(--muted), 0.95);
 			}
 			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+				margin: 0;
+				color: rgba(var(--muted), 0.95);
+				font-size: 0.95rem;
 			}
 			.last-updated-on {
 				font-style: italic;
+			}
+			.prose {
+				padding: 1.1rem;
+				border: 1px solid rgba(var(--border), 1);
+				border-radius: 16px;
+				background: rgba(var(--surface), 0.85);
 			}
 		</style>
 	</head>
@@ -59,24 +67,25 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<Header />
 		<main>
 			<article>
+				<div class="title">
+					<h1>{title}</h1>
+					<p class="summary">{description}</p>
+					<p class="date">
+						<FormattedDate date={pubDate} />
+						{
+							updatedDate && (
+								<span class="last-updated-on">
+									{' '}
+									· updated <FormattedDate date={updatedDate} />
+								</span>
+							)
+						}
+					</p>
+				</div>
 				<div class="hero-image">
 					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
 				</div>
 				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
 					<slot />
 				</div>
 			</article>
