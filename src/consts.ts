@@ -1,6 +1,6 @@
 export const SITE_TITLE = 'vardaan.space';
 export const SITE_DESCRIPTION =
-	'A SpaceX-inspired astrophotography blog featuring deep-sky captures and processing notes.';
+	'An amateur astronomer\'s astrophotography blog featuring deep-sky captures and processing notes.';
 export const SITE_TAGLINE = 'Astrophotography · Deep-sky imaging · Processing notes';
 
 export const NAV_LINKS = [
