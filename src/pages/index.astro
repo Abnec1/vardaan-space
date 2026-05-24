@@ -1,19 +1,9 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../consts';
-
-const featuredGallery = (await getCollection('gallery'))
-	.sort((a, b) => b.data.captureDate.valueOf() - a.data.captureDate.valueOf())
-	.slice(0, 3);
-
-const recentPosts = (await getCollection('blog'))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import apodImage from '../assets/apod.png';
 ---
 
 <!doctype html>
@@ -38,56 +28,31 @@ const recentPosts = (await getCollection('blog'))
 				</div>
 			</section>
 
-			<section class="section">
-				<div class="section-head">
-					<h2>Featured captures</h2>
-					<a href="/gallery">View full gallery</a>
-				</div>
-				<ul class="featured-list">
-					{
-						featuredGallery.map((entry) => (
-							<li class="featured-row">
-								<a class="featured-link full-bleed" href={`/gallery/${entry.id}/`}>
-									<div class="featured-media">
-										<Image src={entry.data.image} alt={entry.data.title} width={1680} height={1120} />
-									</div>
-									<div class="featured-copy">
-										<p class="eyebrow">{entry.data.captureDate.toLocaleDateString('en-US')}</p>
-										<h3>{entry.data.title}</h3>
-										<p class="description">{entry.data.description}</p>
-										<p class="meta">
-											{entry.data.location && <span>{entry.data.location}</span>}
-											{entry.data.equipment && <span>{entry.data.equipment}</span>}
-										</p>
-										<span class="learn">Learn more →</span>
-									</div>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-
-			<section class="section">
-				<div class="section-head">
-					<h2>Recent astronomy notes</h2>
-					<a href="/blog">Browse all posts</a>
-				</div>
-				<ul class="blog-list">
-					{
-						recentPosts.map((post) => (
-							<li class="glass-card post-item">
-								<a href={`/blog/${post.id}/`}>
-									<h3>{post.data.title}</h3>
-									<p>{post.data.description}</p>
-									<p class="meta-date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+			<section class="split-panels full-bleed">
+				<a
+					class="split-panel"
+					href="/blog"
+					style={`--panel-image: url(${apodImage.src}); --panel-position: 22% 30%;`}
+				>
+					<div class="panel-inner">
+						<p class="chip">Blog</p>
+						<h2>Observation log</h2>
+						<p>Session write-ups, processing choices, and capture lessons from each night.</p>
+						<span class="panel-link">Browse posts →</span>
+					</div>
+				</a>
+				<a
+					class="split-panel"
+					href="/gallery"
+					style={`--panel-image: url(${apodImage.src}); --panel-position: 78% 26%;`}
+				>
+					<div class="panel-inner">
+						<p class="chip">Gallery</p>
+						<h2>Deep-sky frames</h2>
+						<p>Browse stacked nebulae, lunar studies, and wide-field captures.</p>
+						<span class="panel-link">View captures →</span>
+					</div>
+				</a>
 			</section>
 		</main>
 		<Footer />
@@ -128,108 +93,76 @@ const recentPosts = (await getCollection('blog'))
 		background: rgba(var(--accent), 0.15);
 		color: rgb(var(--text));
 	}
-	.section {
-		margin: 2rem 0;
-	}
-	.section-head {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		gap: 1rem;
-	}
-	.featured-list,
-	.blog-list {
-		list-style: none;
-		padding: 0;
-		margin: 1.2rem 0 0;
+	.split-panels {
+		margin-top: 2rem;
 		display: grid;
-		gap: 0;
-	}
-	.featured-row {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		border-top: 1px solid rgba(var(--border), 0.6);
-	}
-	.featured-row:last-child {
 		border-bottom: 1px solid rgba(var(--border), 0.6);
 	}
-	.featured-link {
-		display: grid;
-		grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-		min-height: 52vh;
+	.split-panel {
+		position: relative;
+		min-height: clamp(260px, 38vh, 420px);
+		display: flex;
+		align-items: flex-end;
+		padding: clamp(1.6rem, 4vw, 3rem);
 		text-decoration: none;
-		color: inherit;
+		color: rgb(var(--text));
+		background-image:
+			linear-gradient(
+				180deg,
+				rgba(0, 0, 0, 0.2) 0%,
+				rgba(0, 0, 0, 0.55) 65%,
+				rgba(0, 0, 0, 0.82) 100%
+			),
+			var(--panel-image);
+		background-size: cover;
+		background-position: var(--panel-position, center);
+		transition: transform 220ms ease, box-shadow 220ms ease;
 	}
-	.featured-media {
-		background: rgb(var(--bg));
+	.split-panel + .split-panel {
+		border-left: 1px solid rgba(var(--border), 0.6);
 	}
-	.featured-media img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 260ms ease;
-		will-change: transform;
+	.split-panel:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--box-shadow);
 	}
-	.featured-link:hover .featured-media img {
-		transform: scale(1.03);
+	.panel-inner {
+		max-width: 34ch;
+		background: rgba(var(--surface), 0.7);
+		border: 1px solid rgba(var(--border), 0.7);
+		padding: 1.2rem 1.35rem;
 	}
-	.featured-copy {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: clamp(1.6rem, 4vw, 3.2rem);
-		background: rgba(var(--surface), 0.96);
+	.panel-inner h2 {
+		margin-top: 0.6rem;
+		margin-bottom: 0.5rem;
 	}
-	.eyebrow {
-		margin: 0 0 0.8rem;
-		font-size: 0.65rem;
-		letter-spacing: 0.28em;
-		text-transform: uppercase;
-		color: rgba(var(--muted), 0.85);
-	}
-	.description {
-		max-width: 42ch;
-		font-family: var(--font-body);
-		font-weight: 500;
-	}
-	.meta {
-		display: flex;
-		gap: 0.45rem;
-		flex-wrap: wrap;
-		margin: 0;
-		color: rgba(var(--muted), 0.95);
-		font-size: 0.92rem;
-	}
-	.learn {
-		margin-top: 1.1rem;
+	.panel-link {
+		display: inline-block;
+		margin-top: 0.9rem;
 		font-size: 0.7rem;
 		letter-spacing: 0.24em;
 		text-transform: uppercase;
 		color: rgb(var(--text));
 		border-bottom: 1px solid rgba(var(--border), 0.8);
 		padding-bottom: 0.3rem;
-		width: fit-content;
-	}
-	.post-item {
-		padding: 0.8rem 0.9rem;
-	}
-	.post-item h3 {
-		font-family: var(--font-heading);
-		font-weight: 700;
-	}
-	.post-item a {
-		text-decoration: none;
-		color: inherit;
-	}
-	.meta-date {
-		margin: 0.4rem 0 0;
-		color: rgba(var(--muted), 0.95);
 	}
 	@media (max-width: 960px) {
-		.featured-link {
+		.split-panels {
 			grid-template-columns: 1fr;
-			min-height: auto;
 		}
-		.featured-media {
-			min-height: 44vh;
+		.split-panel + .split-panel {
+			border-left: none;
+			border-top: 1px solid rgba(var(--border), 0.6);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.split-panel {
+			transition: none;
+		}
+		.split-panel:hover {
+			transform: none;
+			box-shadow: none;
 		}
 	}
 </style>

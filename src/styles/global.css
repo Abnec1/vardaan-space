@@ -17,12 +17,14 @@ html {
 	--font-brand: 'Asket Narrow', 'Arial Narrow', 'Helvetica Neue', sans-serif;
 	--font-heading: 'DIN Next Arabic', 'DIN Next', 'DIN', 'Helvetica Neue', sans-serif;
 	--font-body: 'Core Sans R45 Medium', 'Core Sans', var(--font-atkinson), sans-serif;
+	--page-zoom: 0.9;
 }
 body {
 	font-family: var(--font-body);
 	margin: 0;
 	padding: 0;
 	text-align: left;
+	zoom: var(--page-zoom);
 	background:
 		radial-gradient(circle at 20% 12%, rgba(255, 255, 255, 0.06), transparent 45%),
 		radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.04), transparent 42%),
