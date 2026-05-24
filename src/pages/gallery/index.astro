@@ -23,11 +23,11 @@ const gallery = (await getCollection('gallery')).sort(
 		<Header />
 		<main>
 			<section class="intro glass-card">
-				<p class="chip">Astrophotography Gallery</p>
-				<h1>Night sky captures</h1>
+				<p class="chip">Payload Archive</p>
+				<h1>Interstellar capture gallery</h1>
 				<p>
-					Every frame here is paired with a concise note: what I saw, where I shot from, and the setup I
-					used.
+					Each frame ships with mission context: targets, capture windows, and the equipment stack behind
+					the result.
 				</p>
 			</section>
 
@@ -60,21 +60,21 @@ const gallery = (await getCollection('gallery')).sort(
 
 <style>
 	.intro {
-		padding: 1.1rem;
-		margin-bottom: 1rem;
+		padding: 1.3rem;
+		margin-bottom: 1.2rem;
 	}
 	.gallery-list {
 		list-style: none;
 		padding: 0;
 		display: grid;
-		gap: 1rem;
+		gap: 1.1rem;
 	}
 	.card {
-		padding: 0.8rem;
+		padding: 0.9rem;
 	}
 	.card-link {
 		display: grid;
-		grid-template-columns: 1.45fr 1fr;
+		grid-template-columns: 1.5fr 1fr;
 		gap: 0.95rem;
 		text-decoration: none;
 		color: inherit;
@@ -85,16 +85,16 @@ const gallery = (await getCollection('gallery')).sort(
 		object-fit: cover;
 	}
 	.details h2 {
-		margin-top: 0.6rem;
+		margin-top: 0.7rem;
 		margin-bottom: 0.4rem;
-		font-size: 1.4rem;
+		font-size: 1.35rem;
 	}
 	.meta {
 		display: flex;
 		gap: 0.5rem;
 		flex-wrap: wrap;
 		margin: 0;
-		font-size: 0.92rem;
+		font-size: 0.9rem;
 		color: rgba(var(--muted), 0.95);
 	}
 	@media (max-width: 900px) {

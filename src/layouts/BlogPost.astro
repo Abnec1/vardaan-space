@@ -21,12 +21,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			article {
 				display: grid;
-				gap: 1.2rem;
+				gap: 1.3rem;
 			}
 			.hero-image {
 				overflow: hidden;
-				border: 1px solid rgba(var(--border), 1);
-				border-radius: 18px;
+				border: 1px solid rgba(var(--border), 0.9);
+				border-radius: var(--radius);
 				box-shadow: var(--box-shadow);
 			}
 			.hero-image img {
@@ -34,10 +34,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				width: 100%;
 			}
 			.title {
-				padding: 1rem 1.1rem;
-				border: 1px solid rgba(var(--border), 1);
-				border-radius: 16px;
-				background: rgba(var(--surface), 0.9);
+				padding: 1.1rem 1.2rem;
+				border: 1px solid rgba(var(--border), 0.9);
+				border-radius: var(--radius);
+				background: rgba(var(--surface), 0.96);
 			}
 			.title h1 {
 				margin-bottom: 0.35rem;
@@ -55,10 +55,90 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				font-style: italic;
 			}
 			.prose {
-				padding: 1.1rem;
-				border: 1px solid rgba(var(--border), 1);
-				border-radius: 16px;
-				background: rgba(var(--surface), 0.85);
+				padding: 1.2rem 1.3rem;
+				border: 1px solid rgba(var(--border), 0.9);
+				border-radius: var(--radius);
+				background: rgba(var(--surface), 0.92);
+			}
+			.comments {
+				padding: 1.2rem 1.3rem;
+			}
+			.comments-head h2 {
+				margin-bottom: 0.4rem;
+			}
+			.muted {
+				margin: 0.3rem 0 0;
+				color: rgba(var(--muted), 0.9);
+				font-size: 0.9rem;
+			}
+			.comment-list {
+				margin-top: 1.2rem;
+				display: grid;
+				gap: 0.8rem;
+			}
+			.comment-card {
+				border: 1px solid rgba(var(--border), 0.8);
+				border-radius: 4px;
+				padding: 0.8rem 0.9rem;
+				background: rgba(var(--surface-2), 0.75);
+			}
+			.comment-head {
+				display: flex;
+				justify-content: space-between;
+				gap: 0.6rem;
+				align-items: baseline;
+			}
+			.comment-name {
+				margin: 0;
+				font-size: 0.85rem;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+			}
+			.comment-date {
+				margin: 0;
+				font-size: 0.75rem;
+				color: rgba(var(--muted), 0.85);
+			}
+			.comment-body {
+				margin: 0.6rem 0 0;
+			}
+			.empty {
+				margin: 0;
+				color: rgba(var(--muted), 0.9);
+			}
+			.comment-form {
+				margin-top: 1.3rem;
+				display: grid;
+				gap: 0.9rem;
+			}
+			label {
+				display: grid;
+				gap: 0.4rem;
+				font-size: 0.75rem;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: rgba(var(--muted), 0.85);
+			}
+			input,
+			textarea {
+				background: rgba(var(--surface-2), 0.85);
+				border: 1px solid rgba(var(--border), 0.8);
+				color: rgb(var(--text));
+				padding: 0.6rem 0.7rem;
+				border-radius: 4px;
+				font-size: 0.95rem;
+			}
+			button {
+				justify-self: start;
+				padding: 0.6rem 1rem;
+				border-radius: 4px;
+				border: 1px solid rgba(var(--accent), 0.9);
+				background: rgba(var(--accent), 0.2);
+				color: rgb(var(--text));
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				font-size: 0.7rem;
+				cursor: pointer;
 			}
 		</style>
 	</head>
@@ -88,8 +168,102 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				<div class="prose">
 					<slot />
 				</div>
+				<section class="comments glass-card">
+					<div class="comments-head">
+						<p class="chip">Comments</p>
+						<h2>Mission discussion</h2>
+						<p class="muted">Comments are stored locally in your browser for this log.</p>
+					</div>
+					<div class="comment-list" data-comment-list>
+						<p class="empty">No comments yet. Be the first to log a response.</p>
+					</div>
+					<form class="comment-form" data-comment-form>
+						<label>
+							Callsign
+							<input name="name" type="text" autocomplete="name" required />
+						</label>
+						<label>
+							Email (optional)
+							<input name="email" type="email" autocomplete="email" />
+						</label>
+						<label>
+							Message
+							<textarea name="message" rows="4" required></textarea>
+						</label>
+						<button type="submit">Send comment</button>
+					</form>
+				</section>
 			</article>
 		</main>
 		<Footer />
+		<script type="module">
+			const storageKey = `comments:${location.pathname}`;
+			const list = document.querySelector('[data-comment-list]');
+			const form = document.querySelector('[data-comment-form]');
+
+			const render = (comments) => {
+				if (!list) return;
+				list.innerHTML = '';
+				if (!comments.length) {
+					const empty = document.createElement('p');
+					empty.className = 'empty';
+					empty.textContent = 'No comments yet. Be the first to log a response.';
+					list.append(empty);
+					return;
+				}
+				comments.forEach((comment) => {
+					const card = document.createElement('div');
+					card.className = 'comment-card';
+
+					const head = document.createElement('div');
+					head.className = 'comment-head';
+
+					const name = document.createElement('p');
+					name.className = 'comment-name';
+					name.textContent = comment.name;
+
+					const date = document.createElement('p');
+					date.className = 'comment-date';
+					date.textContent = new Date(comment.timestamp).toLocaleDateString('en-US', {
+						month: 'short',
+						day: 'numeric',
+						year: 'numeric',
+					});
+
+					const body = document.createElement('p');
+					body.className = 'comment-body';
+					body.textContent = comment.message;
+
+					head.append(name, date);
+					card.append(head, body);
+					list.append(card);
+				});
+			};
+
+			const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
+			render(stored);
+
+			form?.addEventListener('submit', (event) => {
+				event.preventDefault();
+				const formData = new FormData(form);
+				const name = formData.get('name')?.toString().trim();
+				const message = formData.get('message')?.toString().trim();
+
+				if (!name || !message) return;
+
+				const next = [
+					...stored,
+					{
+						name,
+						message,
+						timestamp: Date.now(),
+					},
+				];
+				localStorage.setItem(storageKey, JSON.stringify(next));
+				stored.splice(0, stored.length, ...next);
+				form.reset();
+				render(next);
+			});
+		</script>
 	</body>
 </html>

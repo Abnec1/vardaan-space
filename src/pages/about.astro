@@ -24,26 +24,26 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 					<Image src={AboutHeroImage} alt="Night sky setup and horizon" width={920} height={1120} />
 				</div>
 				<div class="copy">
-					<p class="chip">About me</p>
-					<h1>Hi, I'm Vardaan.</h1>
+					<p class="chip">Mission Brief</p>
+					<h1>About the observer</h1>
 					<p>
-						I'm an amateur astronomer and astrophotographer who loves spending clear nights tracking down
-						deep-sky objects, planetary detail, and wide-field star patterns.
+						I'm an amateur astronomer and astrophotographer focused on precise capture workflows, deep-sky
+						imaging, and disciplined post-processing.
 					</p>
 					<p>
-						This site is where I document each observing session: what worked, what failed, and what the
-						sky taught me.
+						This site records each session in a mission-log format: targets, instrument settings, and what
+						the sky revealed.
 					</p>
 					<p>
-						If you're also building your sky workflow, feel free to reach out. I enjoy collaborating with
-						other observers and sharing processing ideas.
+						If you're building a serious observing workflow, reach out to compare techniques or trade
+						processing notes.
 					</p>
 				</div>
 			</section>
 
-			<section id="contact" class="contact glass-card">
-				<p class="chip">Contact</p>
-				<h2>Let's connect</h2>
+			<section class="contact glass-card">
+				<p class="chip">Operations</p>
+				<h2>Coordination</h2>
 				<p>
 					Email:
 					<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
@@ -67,9 +67,9 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 <style>
 	.about {
 		display: grid;
-		grid-template-columns: minmax(210px, 0.8fr) 1.3fr;
+		grid-template-columns: minmax(220px, 0.8fr) 1.4fr;
 		gap: 1rem;
-		padding: 0.9rem;
+		padding: 1.1rem;
 	}
 	.portrait img {
 		width: 100%;
@@ -77,11 +77,11 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 		object-fit: cover;
 	}
 	.copy {
-		padding: 0.4rem;
+		padding: 0.6rem;
 	}
 	.contact {
 		margin-top: 1rem;
-		padding: 1rem 1.1rem;
+		padding: 1.2rem 1.3rem;
 	}
 	.social-list {
 		display: flex;
@@ -89,11 +89,14 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 		flex-wrap: wrap;
 	}
 	.social-list a {
-		padding: 0.35rem 0.75rem;
-		border: 1px solid rgba(var(--border), 1);
-		border-radius: 999px;
+		padding: 0.35rem 0.6rem;
+		border: 1px solid rgba(var(--border), 0.9);
+		border-radius: 4px;
 		text-decoration: none;
 		color: rgb(var(--text));
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.7rem;
 	}
 	@media (max-width: 860px) {
 		.about {

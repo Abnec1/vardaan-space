@@ -18,22 +18,22 @@ const posts = (await getCollection('blog')).sort(
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			.intro {
-				padding: 1.1rem;
-				margin-bottom: 1rem;
+				padding: 1.3rem;
+				margin-bottom: 1.2rem;
 			}
 			ul {
 				display: grid;
-				gap: 1rem;
+				gap: 1.1rem;
 				list-style-type: none;
 				margin: 0;
 				padding: 0;
 			}
 			li {
-				padding: 0.8rem;
+				padding: 0.9rem;
 			}
 			li a {
 				display: grid;
-				grid-template-columns: 1.2fr 1fr;
+				grid-template-columns: 1.35fr 1fr;
 				gap: 0.95rem;
 				text-decoration: none;
 				color: inherit;
@@ -44,7 +44,7 @@ const posts = (await getCollection('blog')).sort(
 				object-fit: cover;
 			}
 			.copy h2 {
-				margin-top: 0.5rem;
+				margin-top: 0.6rem;
 				margin-bottom: 0.4rem;
 			}
 			.description {
@@ -53,6 +53,7 @@ const posts = (await getCollection('blog')).sort(
 			.meta {
 				margin: 0;
 				color: rgba(var(--muted), 0.95);
+				font-size: 0.9rem;
 			}
 			@media (max-width: 720px) {
 				li a {
@@ -65,9 +66,9 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section class="intro glass-card">
-				<p class="chip">Observing Logs & Notes</p>
-				<h1>Astronomy blog</h1>
-				<p>Field notes, processing lessons, and stories from nights under the stars.</p>
+				<p class="chip">Mission Log</p>
+				<h1>Deep-sky mission reports</h1>
+				<p>Observing telemetry, processing decisions, and calibration workflows from each session.</p>
 			</section>
 			<section>
 				<ul>

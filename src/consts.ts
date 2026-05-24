@@ -1,13 +1,14 @@
-export const SITE_TITLE = 'Vardaan Under The Night Sky';
+export const SITE_TITLE = 'Vardaan Space';
 export const SITE_DESCRIPTION =
-	'A dark, photo-first astronomy journal with nightly captures, observing notes, and sky stories.';
-export const SITE_TAGLINE = 'Amateur astronomer · Astrophotographer · Night-sky storyteller';
+	'An interstellar-themed astronomy log with mission-grade captures, processing notes, and deep-sky telemetry.';
+export const SITE_TAGLINE = 'Astrophotography mission logs · Deep-sky capture data · Processing telemetry';
 
 export const NAV_LINKS = [
 	{ href: '/', label: 'Home' },
 	{ href: '/gallery', label: 'Gallery' },
 	{ href: '/blog', label: 'Blog' },
-	{ href: '/about', label: 'About / Contact' },
+	{ href: '/about', label: 'About' },
+	{ href: '/contact', label: 'Contact' },
 ] as const;
 
 export const CONTACT_EMAIL = 'contact@vardaan.space';

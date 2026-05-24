@@ -1,0 +1,172 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Contact | ${SITE_TITLE}`}
+			description="Contact mission operations for collaboration, feedback, or astronomy discussions."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="contact-hero glass-card">
+				<div>
+					<p class="chip">Contact Ops</p>
+					<h1>Transmit a mission request</h1>
+					<p>
+						Use the direct channels below for collaboration, observing questions, or processing workflow
+						feedback.
+					</p>
+					<div class="contact-details">
+						<div>
+							<p class="label">Primary Link</p>
+							<a class="value" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+						</div>
+						<div>
+							<p class="label">Location</p>
+							<p class="value">{CONTACT_LOCATION}</p>
+						</div>
+					</div>
+				</div>
+				<div class="contact-card">
+					<p class="chip">Direct Channels</p>
+					<div class="social-list">
+						{
+							SOCIAL_LINKS.map((social) => (
+								<a href={social.href} target="_blank" rel="noreferrer">
+									{social.label}
+								</a>
+							))
+						}
+					</div>
+				</div>
+			</section>
+
+			<section class="form glass-card">
+				<p class="chip">Transmission</p>
+				<h2>Send a message</h2>
+				<form class="contact-form" action={`mailto:${CONTACT_EMAIL}`} method="post" enctype="text/plain">
+					<label>
+						Callsign
+						<input name="name" type="text" autocomplete="name" required />
+					</label>
+					<label>
+						Email
+						<input name="email" type="email" autocomplete="email" required />
+					</label>
+					<label>
+						Message
+						<textarea name="message" rows="5" required></textarea>
+					</label>
+					<button type="submit">Send transmission</button>
+				</form>
+				<p class="form-note">
+					This form opens your default email client with the message payload prefilled.
+				</p>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.contact-hero {
+		padding: 1.4rem;
+		display: grid;
+		grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+		gap: 1.6rem;
+	}
+	.contact-details {
+		margin-top: 1.4rem;
+		display: grid;
+		gap: 1rem;
+	}
+	.label {
+		margin: 0 0 0.2rem;
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: rgba(var(--muted), 0.85);
+	}
+	.value {
+		margin: 0;
+		color: rgb(var(--text));
+	}
+	.contact-card {
+		padding: 1rem;
+		border: 1px solid rgba(var(--border), 0.7);
+		border-radius: 4px;
+		background: rgba(var(--surface-2), 0.85);
+	}
+	.social-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		margin-top: 0.8rem;
+	}
+	.social-list a {
+		text-decoration: none;
+		padding: 0.35rem 0.6rem;
+		border: 1px solid rgba(var(--border), 0.9);
+		border-radius: 4px;
+		font-size: 0.7rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: rgb(var(--text));
+	}
+	.form {
+		margin-top: 1.4rem;
+		padding: 1.4rem;
+	}
+	.contact-form {
+		display: grid;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+	label {
+		display: grid;
+		gap: 0.45rem;
+		font-size: 0.85rem;
+		text-transform: uppercase;
+		letter-spacing: 0.16em;
+		color: rgba(var(--muted), 0.85);
+	}
+	input,
+	textarea {
+		background: rgba(var(--surface-2), 0.85);
+		border: 1px solid rgba(var(--border), 0.8);
+		color: rgb(var(--text));
+		padding: 0.6rem 0.7rem;
+		border-radius: 4px;
+		font-size: 0.95rem;
+	}
+	button {
+		justify-self: start;
+		padding: 0.65rem 1.1rem;
+		border-radius: 4px;
+		border: 1px solid rgba(var(--accent), 0.9);
+		background: rgba(var(--accent), 0.22);
+		color: rgb(var(--text));
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.7rem;
+		cursor: pointer;
+	}
+	.form-note {
+		margin-top: 0.8rem;
+		font-size: 0.85rem;
+		color: rgba(var(--muted), 0.85);
+	}
+	@media (max-width: 900px) {
+		.contact-hero {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

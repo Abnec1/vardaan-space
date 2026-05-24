@@ -1,15 +1,17 @@
 :root {
-	--accent: 127, 182, 255;
-	--accent-strong: 161, 112, 255;
-	--bg: 6, 10, 20;
-	--surface: 12, 19, 34;
-	--surface-2: 16, 25, 43;
-	--border: 46, 64, 96;
-	--text: 232, 241, 255;
-	--muted: 155, 172, 205;
+	--accent: 236, 66, 52;
+	--accent-strong: 245, 245, 245;
+	--bg: 4, 6, 10;
+	--surface: 12, 13, 17;
+	--surface-2: 18, 20, 26;
+	--border: 54, 60, 72;
+	--text: 244, 246, 250;
+	--muted: 160, 170, 188;
+	--radius: 6px;
+	--radius-lg: 10px;
 	--box-shadow:
-		0 16px 32px rgba(3, 5, 11, 0.45),
-		0 2px 8px rgba(3, 5, 11, 0.35);
+		0 18px 28px rgba(0, 0, 0, 0.55),
+		0 2px 8px rgba(0, 0, 0, 0.35);
 }
 body {
 	font-family: var(--font-atkinson);
@@ -17,19 +19,29 @@ body {
 	padding: 0;
 	text-align: left;
 	background:
-		radial-gradient(circle at 10% -5%, rgba(var(--accent), 0.18), transparent 45%),
-		radial-gradient(circle at 90% 0%, rgba(var(--accent-strong), 0.12), transparent 36%),
+		radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.08), transparent 40%),
+		radial-gradient(circle at 88% 12%, rgba(var(--accent), 0.2), transparent 42%),
+		repeating-linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0.035) 0 1px,
+			transparent 1px 140px
+		),
+		repeating-linear-gradient(
+			0deg,
+			rgba(255, 255, 255, 0.035) 0 1px,
+			transparent 1px 140px
+		),
 		rgb(var(--bg));
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--text));
-	font-size: 19px;
-	line-height: 1.65;
+	font-size: 18px;
+	line-height: 1.72;
 }
 main {
-	width: min(1080px, calc(100% - 2rem));
+	width: min(1160px, calc(100% - 2.2rem));
 	margin: auto;
-	padding: 2.2rem 0 3rem;
+	padding: 2.4rem 0 3.2rem;
 }
 h1,
 h2,
@@ -45,10 +57,10 @@ h1 {
 	font-size: clamp(2rem, 5.2vw, 3.4rem);
 }
 h2 {
-	font-size: clamp(1.7rem, 3vw, 2.3rem);
+	font-size: clamp(1.6rem, 2.9vw, 2.25rem);
 }
 h3 {
-	font-size: clamp(1.25rem, 2vw, 1.7rem);
+	font-size: clamp(1.2rem, 1.9vw, 1.6rem);
 }
 h4 {
 	font-size: 1.2rem;
@@ -68,7 +80,7 @@ a:hover {
 }
 p {
 	margin-bottom: 0.9em;
-	color: rgba(var(--text), 0.92);
+	color: rgba(var(--text), 0.9);
 }
 .prose p {
 	margin-bottom: 1.2em;
@@ -86,7 +98,7 @@ table {
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 14px;
+	border-radius: var(--radius);
 }
 code {
 	padding: 2px 5px;
@@ -95,7 +107,7 @@ code {
 }
 pre {
 	padding: 1.5em;
-	border-radius: 12px;
+	border-radius: var(--radius-lg);
 	background: rgba(var(--surface), 1);
 	border: 1px solid rgba(var(--border), 1);
 }
@@ -111,36 +123,34 @@ blockquote {
 }
 hr {
 	border: none;
-	border-top: 1px solid rgba(var(--border), 0.85);
+	border-top: 1px solid rgba(var(--border), 0.7);
 }
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 17px;
 	}
 	main {
-		padding-top: 1.2rem;
+		padding-top: 1.4rem;
 	}
 }
 
 .glass-card {
-	background: linear-gradient(
-		160deg,
-		rgba(var(--surface), 0.96),
-		rgba(var(--surface-2), 0.92)
-	);
-	border: 1px solid rgba(var(--border), 1);
-	border-radius: 16px;
+	background: linear-gradient(180deg, rgba(var(--surface), 0.98), rgba(var(--surface-2), 0.94));
+	border: 1px solid rgba(var(--border), 0.95);
+	border-radius: var(--radius);
 	box-shadow: var(--box-shadow);
 }
 
 .chip {
 	display: inline-flex;
-	padding: 0.25rem 0.65rem;
-	border: 1px solid rgba(var(--border), 1);
-	border-radius: 999px;
-	font-size: 0.8rem;
-	color: rgba(var(--muted), 1);
-	letter-spacing: 0.02em;
+	padding: 0.25rem 0.6rem;
+	border: 1px solid rgba(var(--border), 0.9);
+	border-radius: 4px;
+	font-size: 0.68rem;
+	color: rgba(var(--muted), 0.95);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	background: rgba(var(--surface-2), 0.8);
 }
 
 .sr-only {

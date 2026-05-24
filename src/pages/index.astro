@@ -25,13 +25,39 @@ const recentPosts = (await getCollection('blog'))
 		<Header />
 		<main>
 			<section class="hero glass-card">
-				<p class="chip">New lens, same sky wonder</p>
-				<h1>{SITE_TITLE}</h1>
-				<p>{SITE_TAGLINE}</p>
-				<div class="cta-row">
-					<a class="cta primary" href="/gallery">Explore Gallery</a>
-					<a class="cta" href="/blog">Read Blog</a>
-					<a class="cta" href="/about#contact">Contact</a>
+				<div class="hero-main">
+					<p class="chip">Mission Control</p>
+					<h1>{SITE_TITLE}</h1>
+					<p>
+						An interstellar-themed astronomy log focused on precision capture data, dark-sky processing,
+						and mission-grade observing notes.
+					</p>
+					<div class="cta-row">
+						<a class="cta primary" href="/gallery">Explore Gallery</a>
+						<a class="cta" href="/blog">Read Blog</a>
+						<a class="cta" href="/contact">Contact Ops</a>
+					</div>
+				</div>
+				<div class="hero-panel">
+					<p class="chip">Telemetry Snapshot</p>
+					<div class="telemetry-grid">
+						<div>
+							<p class="label">Current Mission</p>
+							<p class="value">Deep-Sky Survey</p>
+						</div>
+						<div>
+							<p class="label">Capture Window</p>
+							<p class="value">New Moon Cycle</p>
+						</div>
+						<div>
+							<p class="label">Primary Payload</p>
+							<p class="value">Wide-Field Imaging</p>
+						</div>
+						<div>
+							<p class="label">Processing Stack</p>
+							<p class="value">Calibration · Stacking · De-noise</p>
+						</div>
+					</div>
 				</div>
 			</section>
 
@@ -92,31 +118,62 @@ const recentPosts = (await getCollection('blog'))
 
 <style>
 	.hero {
-		padding: clamp(1.25rem, 3vw, 2rem);
+		padding: clamp(1.3rem, 3vw, 2.2rem);
 		margin-bottom: 1.4rem;
+		display: grid;
+		grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+		gap: 1.4rem;
 	}
 	.hero h1 {
 		margin-top: 0.7rem;
 		margin-bottom: 0.55rem;
 	}
 	.hero p {
-		max-width: 65ch;
+		max-width: 60ch;
 	}
 	.cta-row {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.6rem;
+		gap: 0.7rem;
+		margin-top: 1.2rem;
 	}
 	.cta {
-		padding: 0.5rem 0.9rem;
-		border-radius: 999px;
-		border: 1px solid rgba(var(--border), 1);
+		padding: 0.6rem 1rem;
+		border-radius: 4px;
+		border: 1px solid rgba(var(--border), 0.8);
 		text-decoration: none;
 		color: rgb(var(--text));
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.7rem;
 	}
 	.cta.primary {
-		border-color: rgba(var(--accent), 0.6);
-		background: rgba(var(--accent), 0.18);
+		border-color: rgba(var(--accent), 0.9);
+		background: rgba(var(--accent), 0.2);
+		color: rgb(var(--text));
+	}
+	.hero-panel {
+		border: 1px solid rgba(var(--border), 0.7);
+		border-radius: 4px;
+		padding: 1rem;
+		background: rgba(var(--surface-2), 0.8);
+	}
+	.telemetry-grid {
+		margin-top: 0.8rem;
+		display: grid;
+		gap: 0.9rem;
+	}
+	.label {
+		margin: 0 0 0.25rem;
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: rgba(var(--muted), 0.85);
+	}
+	.value {
+		margin: 0;
+		font-size: 0.95rem;
+		color: rgb(var(--text));
 	}
 	.section {
 		margin: 1.5rem 0;
@@ -140,7 +197,7 @@ const recentPosts = (await getCollection('blog'))
 	}
 	.photo-link {
 		display: grid;
-		grid-template-columns: 1.4fr 1fr;
+		grid-template-columns: 1.5fr 1fr;
 		gap: 0.9rem;
 		text-decoration: none;
 	}
@@ -171,6 +228,11 @@ const recentPosts = (await getCollection('blog'))
 	.meta-date {
 		margin: 0.4rem 0 0;
 		color: rgba(var(--muted), 0.95);
+	}
+	@media (max-width: 960px) {
+		.hero {
+			grid-template-columns: 1fr;
+		}
 	}
 	@media (max-width: 860px) {
 		.photo-link {
