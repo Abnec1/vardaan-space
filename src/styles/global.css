@@ -1,3 +1,7 @@
+html {
+	scroll-behavior: smooth;
+}
+
 :root {
 	--accent: 230, 230, 230;
 	--accent-strong: 255, 255, 255;
@@ -27,13 +31,13 @@ body {
 	overflow-wrap: break-word;
 	overflow-x: clip;
 	color: rgb(var(--text));
-	font-size: 18px;
+	font-size: clamp(15.5px, 0.85vw + 0.7rem, 17px);
 	line-height: 1.72;
 }
 main {
-	width: min(1200px, calc(100% - 2.4rem));
+	width: min(1120px, calc(100% - clamp(2rem, 4vw, 3.2rem)));
 	margin: auto;
-	padding: 2.6rem 0 3.6rem;
+	padding: clamp(2rem, 4vw, 2.8rem) 0 clamp(3rem, 6vw, 4rem);
 }
 h1,
 h2,
@@ -119,7 +123,7 @@ hr {
 }
 @media (max-width: 720px) {
 	body {
-		font-size: 17px;
+		font-size: 16px;
 	}
 	main {
 		padding-top: 1.6rem;
