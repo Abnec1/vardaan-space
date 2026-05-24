@@ -22,7 +22,7 @@ const gallery = (await getCollection('gallery')).sort(
 	<body>
 		<Header />
 		<main>
-			<section class="intro glass-card">
+			<section class="intro">
 				<p class="chip">Payload Archive</p>
 				<h1>Interstellar capture gallery</h1>
 				<p>
@@ -34,19 +34,20 @@ const gallery = (await getCollection('gallery')).sort(
 			<ul class="gallery-list">
 				{
 					gallery.map((entry) => (
-						<li class="glass-card card">
-							<a href={`/gallery/${entry.id}/`} class="card-link">
-								<div class="image-wrap">
-									<Image src={entry.data.image} alt={entry.data.title} width={1080} height={720} />
+						<li class="gallery-row">
+							<a href={`/gallery/${entry.id}/`} class="row-link">
+								<div class="row-media">
+									<Image src={entry.data.image} alt={entry.data.title} width={1680} height={1120} />
 								</div>
-								<div class="details">
-									<p class="chip">{entry.data.captureDate.toLocaleDateString('en-US')}</p>
+								<div class="row-copy">
+									<p class="eyebrow">{entry.data.captureDate.toLocaleDateString('en-US')}</p>
 									<h2>{entry.data.title}</h2>
-									<p>{entry.data.description}</p>
+									<p class="description">{entry.data.description}</p>
 									<p class="meta">
 										{entry.data.location && <span>{entry.data.location}</span>}
 										{entry.data.equipment && <span>{entry.data.equipment}</span>}
 									</p>
+									<span class="learn">Learn more →</span>
 								</div>
 							</a>
 						</li>
@@ -60,34 +61,54 @@ const gallery = (await getCollection('gallery')).sort(
 
 <style>
 	.intro {
-		padding: 1.3rem;
-		margin-bottom: 1.2rem;
+		padding: 0 0 2.5rem;
+		border-bottom: 1px solid rgba(var(--border), 0.6);
+		margin-bottom: 0;
 	}
 	.gallery-list {
 		list-style: none;
 		padding: 0;
+		margin: 0;
 		display: grid;
-		gap: 1.1rem;
+		gap: 0;
 	}
-	.card {
-		padding: 0.9rem;
+	.gallery-row {
+		border-bottom: 1px solid rgba(var(--border), 0.6);
 	}
-	.card-link {
+	.row-link {
 		display: grid;
-		grid-template-columns: 1.5fr 1fr;
-		gap: 0.95rem;
+		grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.95fr);
+		min-height: 72vh;
+		width: 100vw;
+		margin-left: calc(50% - 50vw);
+		margin-right: calc(50% - 50vw);
 		text-decoration: none;
 		color: inherit;
 	}
-	.image-wrap img {
+	.row-media {
+		background: rgb(var(--bg));
+	}
+	.row-media img {
 		width: 100%;
-		aspect-ratio: 16 / 10;
+		height: 100%;
 		object-fit: cover;
 	}
-	.details h2 {
-		margin-top: 0.7rem;
-		margin-bottom: 0.4rem;
-		font-size: 1.35rem;
+	.row-copy {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: clamp(2rem, 5vw, 4.5rem);
+		background: rgba(var(--surface), 0.96);
+	}
+	.eyebrow {
+		margin: 0 0 0.8rem;
+		font-size: 0.65rem;
+		letter-spacing: 0.28em;
+		text-transform: uppercase;
+		color: rgba(var(--muted), 0.85);
+	}
+	.description {
+		max-width: 42ch;
 	}
 	.meta {
 		display: flex;
@@ -97,9 +118,23 @@ const gallery = (await getCollection('gallery')).sort(
 		font-size: 0.9rem;
 		color: rgba(var(--muted), 0.95);
 	}
-	@media (max-width: 900px) {
-		.card-link {
+	.learn {
+		margin-top: 1.2rem;
+		font-size: 0.7rem;
+		letter-spacing: 0.24em;
+		text-transform: uppercase;
+		color: rgb(var(--text));
+		border-bottom: 1px solid rgba(var(--border), 0.8);
+		padding-bottom: 0.3rem;
+		width: fit-content;
+	}
+	@media (max-width: 960px) {
+		.row-link {
 			grid-template-columns: 1fr;
+			min-height: auto;
+		}
+		.row-media {
+			min-height: 52vh;
 		}
 	}
 </style>
