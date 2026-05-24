@@ -40,6 +40,27 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 				</div>
 			</section>
 
+			<section class="details glass-card">
+				<div>
+					<p class="chip">Equipment</p>
+					<h2>Imaging stack</h2>
+					<ul>
+						<li>Tracking mount optimized for long exposures and polar alignment accuracy.</li>
+						<li>Wide-field refractor with corrected optics for sharp star fields.</li>
+						<li>Dedicated astro camera with calibrated darks, flats, and bias frames.</li>
+					</ul>
+				</div>
+				<div>
+					<p class="chip">Workflow</p>
+					<h2>Capture to final</h2>
+					<ul>
+						<li>Plan the target window, framing, and exposure length per session.</li>
+						<li>Capture calibrated subframes with consistent temperature and gain.</li>
+						<li>Stack, stretch, and refine color while preserving star shape and contrast.</li>
+					</ul>
+				</div>
+			</section>
+
 			<section class="contact glass-card">
 				<p class="chip">Contact</p>
 				<h2>Connect</h2>
@@ -77,6 +98,21 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 	}
 	.copy {
 		padding: 0.6rem;
+	}
+	.details {
+		margin-top: 1rem;
+		padding: 1.2rem 1.3rem;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1.4rem;
+	}
+	.details ul {
+		margin: 0.8rem 0 0;
+		padding-left: 1.1rem;
+		color: rgba(var(--muted), 0.95);
+	}
+	.details li {
+		margin-bottom: 0.6rem;
 	}
 	.contact {
 		margin-top: 1rem;

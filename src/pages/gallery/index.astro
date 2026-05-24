@@ -6,9 +6,9 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 
-const gallery = (await getCollection('gallery')).sort(
-	(a, b) => b.data.captureDate.valueOf() - a.data.captureDate.valueOf(),
-);
+const gallery = (await getCollection('blog'))
+	.filter((post) => post.data.heroImage)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <!doctype html>
@@ -16,7 +16,7 @@ const gallery = (await getCollection('gallery')).sort(
 	<head>
 		<BaseHead
 			title={`Gallery | ${SITE_TITLE}`}
-			description="Astrophotography captures with short observing notes and setup details."
+			description="Astrophotography images drawn from the full blog archive."
 		/>
 	</head>
 	<body>
@@ -25,28 +25,21 @@ const gallery = (await getCollection('gallery')).sort(
 			<section class="intro">
 				<p class="chip">Gallery</p>
 				<h1>Astrophotography captures</h1>
-				<p>
-					A SpaceX-inspired presentation of deep-sky frames, each paired with target notes and the capture
-					configuration behind it.
-				</p>
+				<p>Every image here comes from the blog archive, paired with the original post.</p>
 			</section>
 
 			<ul class="gallery-list">
 				{
 					gallery.map((entry) => (
 						<li class="gallery-row">
-							<a href={`/gallery/${entry.id}/`} class="row-link">
+							<a href={`/blog/${entry.id}/`} class="row-link">
 								<div class="row-media">
-									<Image src={entry.data.image} alt={entry.data.title} width={1680} height={1120} />
+									<Image src={entry.data.heroImage} alt={entry.data.title} width={1680} height={1120} />
 								</div>
 								<div class="row-copy">
-									<p class="eyebrow">{entry.data.captureDate.toLocaleDateString('en-US')}</p>
+									<p class="eyebrow">{entry.data.pubDate.toLocaleDateString('en-US')}</p>
 									<h2>{entry.data.title}</h2>
 									<p class="description">{entry.data.description}</p>
-									<p class="meta">
-										{entry.data.location && <span>{entry.data.location}</span>}
-										{entry.data.equipment && <span>{entry.data.equipment}</span>}
-									</p>
 									<span class="learn">Learn more →</span>
 								</div>
 							</a>
@@ -109,14 +102,6 @@ const gallery = (await getCollection('gallery')).sort(
 	}
 	.description {
 		max-width: 42ch;
-	}
-	.meta {
-		display: flex;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-		margin: 0;
-		font-size: 0.9rem;
-		color: rgba(var(--muted), 0.95);
 	}
 	.learn {
 		margin-top: 1.2rem;

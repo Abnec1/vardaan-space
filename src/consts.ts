@@ -4,13 +4,15 @@ export const SITE_DESCRIPTION =
 export const SITE_TAGLINE = 'Astrophotography · Deep-sky imaging · Processing notes';
 
 export const NAV_LINKS = [
+	{ href: '/', label: 'Home' },
 	{ href: '/blog', label: 'Blog' },
 	{ href: '/gallery', label: 'Gallery' },
+	{ href: '/about', label: 'About' },
 	{ href: '/contact', label: 'Contact' },
 ] as const;
 
 export const CONTACT_EMAIL = 'vardaanconnect@gmail.com';
-export const CONTACT_LOCATION = 'Based in India';
+export const CONTACT_LOCATION = 'Based in the UAE';
 
 export const SOCIAL_LINKS = [
 	{ label: 'Instagram', href: 'https://instagram.com/yourastrohandle' },
