@@ -1,13 +1,11 @@
-export const SITE_TITLE = 'Vardaan Space';
+export const SITE_TITLE = 'vardaan.space';
 export const SITE_DESCRIPTION =
-	'An interstellar-themed astronomy log with mission-grade captures, processing notes, and deep-sky telemetry.';
-export const SITE_TAGLINE = 'Astrophotography mission logs · Deep-sky capture data · Processing telemetry';
+	'A SpaceX-inspired astrophotography blog featuring deep-sky captures and processing notes.';
+export const SITE_TAGLINE = 'Astrophotography · Deep-sky imaging · Processing notes';
 
 export const NAV_LINKS = [
-	{ href: '/', label: 'Home' },
-	{ href: '/gallery', label: 'Gallery' },
 	{ href: '/blog', label: 'Blog' },
-	{ href: '/about', label: 'About' },
+	{ href: '/gallery', label: 'Gallery' },
 	{ href: '/contact', label: 'Contact' },
 ] as const;
 

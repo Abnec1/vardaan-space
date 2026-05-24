@@ -18,10 +18,10 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 		<main>
 			<section class="contact-hero glass-card">
 				<div>
-					<p class="chip">Contact Ops</p>
-					<h1>Transmit a mission request</h1>
+					<p class="chip">Contact</p>
+					<h1>Get in touch</h1>
 					<p>
-						Use the direct channels below for collaboration, observing questions, or processing workflow
+						Use the channels below for collaboration, observing questions, or processing workflow
 						feedback.
 					</p>
 					<div class="contact-details">
@@ -36,7 +36,7 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 					</div>
 				</div>
 				<div class="contact-card">
-					<p class="chip">Direct Channels</p>
+					<p class="chip">Direct Links</p>
 					<div class="social-list">
 						{
 							SOCIAL_LINKS.map((social) => (
@@ -50,8 +50,8 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 			</section>
 
 			<section class="form glass-card">
-				<p class="chip">Transmission</p>
-				<h2>Send a message</h2>
+				<p class="chip">Message</p>
+				<h2>Send a note</h2>
 				<form class="contact-form" action={`mailto:${CONTACT_EMAIL}`} method="post" enctype="text/plain">
 					<label>
 						Callsign
@@ -65,10 +65,10 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SITE_TITLE, SOCIAL_LINKS } from '../co
 						Message
 						<textarea name="message" rows="5" required></textarea>
 					</label>
-					<button type="submit">Send transmission</button>
+					<button type="submit">Send message</button>
 				</form>
 				<p class="form-note">
-					This form opens your default email client with the message payload prefilled.
+					This form opens your default email client with the message prefilled.
 				</p>
 			</section>
 		</main>

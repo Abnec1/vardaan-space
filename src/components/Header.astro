@@ -1,15 +1,11 @@
 ---
-import { NAV_LINKS, SITE_TAGLINE, SITE_TITLE } from '../consts';
+import { NAV_LINKS, SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
 
 <header>
 	<nav>
-		<div class="brand">
-			<p class="eyebrow">Interstellar Observation Program</p>
-			<h2><a href="/">{SITE_TITLE}</a></h2>
-			<p class="tagline">{SITE_TAGLINE}</p>
-		</div>
+		<a class="logo" href="/">{SITE_TITLE}</a>
 		<div class="internal-links">
 			{
 				NAV_LINKS.map((link) => (
@@ -28,46 +24,32 @@ import HeaderLink from './HeaderLink.astro';
 		background: rgb(var(--bg));
 		border-bottom: 1px solid rgba(var(--border), 0.6);
 	}
-	.brand {
-		display: grid;
-		gap: 0.2rem;
-	}
-	.eyebrow {
-		margin: 0;
-		font-size: 0.65rem;
-		letter-spacing: 0.22em;
-		text-transform: uppercase;
-		color: rgba(var(--muted), 0.9);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.06rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-	}
-	.tagline {
-		margin: 0;
-		font-size: 0.74rem;
-		color: rgba(var(--muted), 0.92);
-	}
-	h2 a,
-	h2 a.active {
+	.logo {
 		text-decoration: none;
 		color: rgb(var(--text));
+		letter-spacing: 0.12em;
+		font-size: 0.85rem;
+	}
+	.logo:hover {
+		color: rgb(var(--accent));
 	}
 	nav {
-		display: flex;
+		display: grid;
+		grid-template-columns: auto 1fr;
 		align-items: center;
 		gap: 1rem;
-		justify-content: space-between;
 	}
 	.internal-links {
 		display: flex;
-		gap: 0.5rem;
+		gap: 1.6rem;
 		align-items: center;
-		flex-wrap: wrap;
+		justify-self: center;
 	}
 	nav a {
+		margin: 0;
+		font-size: 0.65rem;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
 		padding: 0.4rem 0.8rem;
 		color: rgb(var(--text));
 		border: 1px solid rgba(var(--border), 0.5);
@@ -84,11 +66,12 @@ import HeaderLink from './HeaderLink.astro';
 	}
 	@media (max-width: 720px) {
 		nav {
-			flex-direction: column;
+			grid-template-columns: 1fr;
 			align-items: flex-start;
 		}
-		.tagline {
-			display: none;
+		.internal-links {
+			justify-self: flex-start;
+			gap: 0.8rem;
 		}
 	}
 </style>
