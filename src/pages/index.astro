@@ -47,7 +47,7 @@ const recentPosts = (await getCollection('blog'))
 					{
 						featuredGallery.map((entry) => (
 							<li class="featured-row">
-								<a class="featured-link" href={`/gallery/${entry.id}/`}>
+								<a class="featured-link full-bleed" href={`/gallery/${entry.id}/`}>
 									<div class="featured-media">
 										<Image src={entry.data.image} alt={entry.data.title} width={1680} height={1120} />
 									</div>
@@ -155,9 +155,6 @@ const recentPosts = (await getCollection('blog'))
 		display: grid;
 		grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
 		min-height: 64vh;
-		width: 100vw;
-		margin-left: calc(50% - 50vw);
-		margin-right: calc(50% - 50vw);
 		text-decoration: none;
 		color: inherit;
 	}

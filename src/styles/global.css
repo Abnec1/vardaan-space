@@ -25,6 +25,7 @@ body {
 		rgb(var(--bg));
 	word-wrap: break-word;
 	overflow-wrap: break-word;
+	overflow-x: clip;
 	color: rgb(var(--text));
 	font-size: 18px;
 	line-height: 1.72;
@@ -142,6 +143,20 @@ hr {
 	letter-spacing: 0.24em;
 	text-transform: uppercase;
 	background: transparent;
+}
+
+.full-bleed {
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
+
+@supports (width: 100dvw) {
+	.full-bleed {
+		width: 100dvw;
+		margin-left: calc(50% - 50dvw);
+		margin-right: calc(50% - 50dvw);
+	}
 }
 
 .sr-only {
