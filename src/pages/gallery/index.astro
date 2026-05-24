@@ -25,7 +25,6 @@ const gallery = (await getCollection('blog'))
 			<section class="intro">
 				<p class="chip">Gallery</p>
 				<h1>Astrophotography captures</h1>
-				<p>Every image here comes from the blog archive, paired with the original post.</p>
 			</section>
 
 			<ul class="gallery-list">
@@ -36,12 +35,7 @@ const gallery = (await getCollection('blog'))
 								<div class="row-media">
 									<Image src={entry.data.heroImage} alt={entry.data.title} width={1680} height={1120} />
 								</div>
-								<div class="row-copy">
-									<p class="eyebrow">{entry.data.pubDate.toLocaleDateString('en-US')}</p>
-									<h2>{entry.data.title}</h2>
-									<p class="description">{entry.data.description}</p>
-									<span class="learn">Learn more →</span>
-								</div>
+								<span class="sr-only">{entry.data.title}</span>
 							</a>
 						</li>
 					))
@@ -69,9 +63,8 @@ const gallery = (await getCollection('blog'))
 		border-bottom: 1px solid rgba(var(--border), 0.6);
 	}
 	.row-link {
-		display: grid;
-		grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.95fr);
-		min-height: 72vh;
+		display: block;
+		min-height: 80vh;
 		width: 100vw;
 		margin-left: calc(50% - 50vw);
 		margin-right: calc(50% - 50vw);
@@ -80,46 +73,19 @@ const gallery = (await getCollection('blog'))
 	}
 	.row-media {
 		background: rgb(var(--bg));
+		min-height: 80vh;
 	}
 	.row-media img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 	}
-	.row-copy {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: clamp(2rem, 5vw, 4.5rem);
-		background: rgba(var(--surface), 0.96);
-	}
-	.eyebrow {
-		margin: 0 0 0.8rem;
-		font-size: 0.65rem;
-		letter-spacing: 0.28em;
-		text-transform: uppercase;
-		color: rgba(var(--muted), 0.85);
-	}
-	.description {
-		max-width: 42ch;
-	}
-	.learn {
-		margin-top: 1.2rem;
-		font-size: 0.7rem;
-		letter-spacing: 0.24em;
-		text-transform: uppercase;
-		color: rgb(var(--text));
-		border-bottom: 1px solid rgba(var(--border), 0.8);
-		padding-bottom: 0.3rem;
-		width: fit-content;
-	}
 	@media (max-width: 960px) {
 		.row-link {
-			grid-template-columns: 1fr;
 			min-height: auto;
 		}
 		.row-media {
-			min-height: 52vh;
+			min-height: 56vh;
 		}
 	}
 </style>

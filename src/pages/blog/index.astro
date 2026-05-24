@@ -46,9 +46,13 @@ const posts = (await getCollection('blog')).sort(
 			.copy h2 {
 				margin-top: 0.6rem;
 				margin-bottom: 0.4rem;
+				font-family: var(--font-heading);
+				font-weight: 700;
 			}
 			.description {
 				margin-bottom: 0.8rem;
+				font-family: var(--font-body);
+				font-weight: 500;
 			}
 			.meta {
 				margin: 0;

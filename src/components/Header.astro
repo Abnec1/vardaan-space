@@ -29,48 +29,52 @@ import HeaderLink from './HeaderLink.astro';
 		color: rgb(var(--text));
 		letter-spacing: 0.12em;
 		font-size: 0.85rem;
+		font-family: var(--font-brand);
+		font-weight: 300;
 	}
 	.logo:hover {
 		color: rgb(var(--accent));
 	}
 	nav {
-		display: grid;
-		grid-template-columns: auto 1fr;
+		display: flex;
 		align-items: center;
 		gap: 1rem;
+		position: relative;
 	}
 	.internal-links {
 		display: flex;
-		gap: 1.6rem;
+		gap: 1.8rem;
 		align-items: center;
-		justify-self: center;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
 	}
-	nav a {
+	.internal-links a {
 		margin: 0;
 		font-size: 0.65rem;
-		letter-spacing: 0.2em;
+		letter-spacing: 0.22em;
 		text-transform: uppercase;
 		padding: 0.4rem 0.8rem;
 		color: rgb(var(--text));
 		border: 1px solid rgba(var(--border), 0.5);
 		border-radius: 0;
 		text-decoration: none;
-		text-transform: uppercase;
-		letter-spacing: 0.2em;
-		font-size: 0.65rem;
+		font-family: var(--font-brand);
+		font-weight: 300;
 		transition: border-color 160ms ease, color 160ms ease;
 	}
-	nav a.active {
+	.internal-links a.active {
 		border-color: rgba(var(--accent), 0.9);
 		color: rgb(var(--accent));
 	}
 	@media (max-width: 720px) {
 		nav {
-			grid-template-columns: 1fr;
+			flex-direction: column;
 			align-items: flex-start;
 		}
 		.internal-links {
-			justify-self: flex-start;
+			position: static;
+			transform: none;
 			gap: 0.8rem;
 		}
 	}
