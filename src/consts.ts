@@ -11,7 +11,7 @@ export const NAV_LINKS = [
 	{ href: '/contact', label: 'Contact' },
 ] as const;
 
-export const CONTACT_EMAIL = 'vardaanconnect@gmail.com';
+export const CONTACT_EMAIL = 'inquiries@vardaan.space';
 export const CONTACT_LOCATION = 'Based in the UAE';
 
 export const SOCIAL_LINKS = [

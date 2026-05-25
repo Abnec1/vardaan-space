@@ -16,7 +16,7 @@ const gallery = (await getCollection('gallery')).sort(
 	<head>
 		<BaseHead
 			title={`Gallery | ${SITE_TITLE}`}
-			description="Astrophotography images drawn from the full blog archive."
+			description="Astrophotography images drawn from the gallery archive."
 		/>
 	</head>
 	<body>
@@ -27,7 +27,7 @@ const gallery = (await getCollection('gallery')).sort(
 				<h1>Astrophotography captures</h1>
 			</section>
 
-			<ul class="gallery-list full-bleed">
+			<ul class="gallery-list">
 				{
 					gallery.map((entry) => (
 						<li class="gallery-row">
@@ -57,7 +57,7 @@ const gallery = (await getCollection('gallery')).sort(
 		padding: 0;
 		margin: 2.2rem 0 0;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: clamp(0.7rem, 1.8vw, 1.2rem);
 		grid-auto-flow: row;
 	}
@@ -92,6 +92,16 @@ const gallery = (await getCollection('gallery')).sort(
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+	@media (max-width: 980px) {
+		.gallery-list {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+	@media (max-width: 640px) {
+		.gallery-list {
+			grid-template-columns: 1fr;
+		}
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.gallery-row {
