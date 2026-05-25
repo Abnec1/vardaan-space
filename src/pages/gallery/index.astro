@@ -6,16 +6,9 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 
-const gallery = (await getCollection('blog'))
-	.filter((post) => post.data.heroImage)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const tileSizes = ['tile-s', 'tile-w', 'tile-t', 'tile-l', 'tile-s', 'tile-w'];
-
-const getTileClass = (id, index) => {
-	const seed = [...id].reduce((total, char) => total + char.charCodeAt(0), 0) + index * 13;
-	return tileSizes[seed % tileSizes.length];
-};
+const gallery = (await getCollection('gallery')).sort(
+	(a, b) => b.data.captureDate.valueOf() - a.data.captureDate.valueOf(),
+);
 ---
 
 <!doctype html>
@@ -36,11 +29,11 @@ const getTileClass = (id, index) => {
 
 			<ul class="gallery-list full-bleed">
 				{
-					gallery.map((entry, index) => (
-						<li class={`gallery-row ${getTileClass(entry.id, index)}`}>
-							<a href={`/blog/${entry.id}/`} class="row-link">
+					gallery.map((entry) => (
+						<li class="gallery-row">
+							<a href={`/gallery/${entry.id}/`} class="row-link">
 								<div class="row-media">
-									<Image src={entry.data.heroImage} alt={entry.data.title} width={1680} height={1120} />
+									<Image src={entry.data.image} alt={entry.data.title} width={1680} height={1120} />
 								</div>
 								<span class="sr-only">{entry.data.title}</span>
 							</a>
@@ -64,14 +57,14 @@ const getTileClass = (id, index) => {
 		padding: 0;
 		margin: 2.2rem 0 0;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 		gap: clamp(0.7rem, 1.8vw, 1.2rem);
-		grid-auto-rows: 110px;
-		grid-auto-flow: dense;
+		grid-auto-flow: row;
 	}
 	.gallery-row {
 		position: relative;
 		overflow: hidden;
+		aspect-ratio: 4 / 3;
 		background: rgba(var(--surface), 0.9);
 		border: 1px solid rgba(var(--border), 0.6);
 		border-radius: 0;
@@ -100,40 +93,12 @@ const getTileClass = (id, index) => {
 		height: 100%;
 		object-fit: cover;
 	}
-	.tile-s {
-		grid-column: span 1;
-		grid-row: span 1;
-	}
-	.tile-w {
-		grid-column: span 2;
-		grid-row: span 1;
-	}
-	.tile-t {
-		grid-column: span 1;
-		grid-row: span 2;
-	}
-	.tile-l {
-		grid-column: span 2;
-		grid-row: span 2;
-	}
 	@media (prefers-reduced-motion: reduce) {
 		.gallery-row {
 			transition: none;
 		}
 		.gallery-row:hover {
 			transform: none;
-		}
-	}
-	@media (max-width: 960px) {
-		.gallery-list {
-			grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-			grid-auto-rows: 100px;
-		}
-	}
-	@media (max-width: 600px) {
-		.gallery-list {
-			grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-			grid-auto-rows: 90px;
 		}
 	}
 </style>
