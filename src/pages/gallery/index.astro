@@ -3,41 +3,46 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_TITLE } from '../../consts';
 
-const gallery = (await getCollection('gallery')).sort(
-	(a, b) => b.data.captureDate.valueOf() - a.data.captureDate.valueOf(),
+const gallery = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead
-			title={`Gallery | ${SITE_TITLE}`}
-			description="Astrophotography images drawn from the gallery archive."
-		/>
+		<BaseHead title="Gallery" description="Astrophotography images featured in the blog posts." />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section class="intro">
+			<section class="intro glass-card">
 				<p class="chip">Gallery</p>
-				<h1>Astrophotography captures</h1>
+				<h1>Blog images</h1>
+				<p>Each image opens the blog post where it first appeared.</p>
 			</section>
 
 			<ul class="gallery-list">
 				{
 					gallery.map((entry) => (
-						<li class="gallery-row">
-							<a href={`/gallery/${entry.id}/`} class="row-link">
-								<div class="row-media">
-									<Image src={entry.data.image} alt={entry.data.title} width={1680} height={1120} />
-								</div>
-								<span class="sr-only">{entry.data.title}</span>
-							</a>
-						</li>
+						entry.data.heroImage && (
+							<li class="gallery-row glass-card">
+								<a href={`/blog/${entry.id}/`} class="row-link">
+									<div class="row-media">
+										<Image src={entry.data.heroImage} alt={entry.data.title} width={1680} height={1120} />
+									</div>
+									<div class="row-copy">
+										<p class="chip">
+											<FormattedDate date={entry.data.pubDate} />
+										</p>
+										<h2>{entry.data.title}</h2>
+									</div>
+								</a>
+							</li>
+						)
 					))
 				}
 			</ul>
@@ -48,50 +53,49 @@ const gallery = (await getCollection('gallery')).sort(
 
 <style>
 	.intro {
-		padding: 0 0 2.5rem;
-		border-bottom: 1px solid rgba(var(--border), 0.6);
-		margin-bottom: 0;
+		padding: 1.2rem 1.3rem;
+		margin-bottom: 1.2rem;
 	}
 	.gallery-list {
 		list-style: none;
 		padding: 0;
-		margin: 2.2rem 0 0;
+		margin: 0;
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: clamp(0.7rem, 1.8vw, 1.2rem);
-		grid-auto-flow: row;
 	}
 	.gallery-row {
-		position: relative;
 		overflow: hidden;
-		aspect-ratio: 4 / 3;
-		background: rgba(var(--surface), 0.9);
-		border: 1px solid rgba(var(--border), 0.6);
-		border-radius: 0;
 		transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
-		will-change: transform;
-		z-index: 0;
 	}
 	.gallery-row:hover {
 		transform: translate(-6px, -6px) rotate(-0.4deg);
 		box-shadow: var(--box-shadow);
 		border-color: rgba(var(--accent), 0.5);
-		z-index: 2;
 	}
 	.row-link {
-		display: block;
-		height: 100%;
+		display: grid;
 		text-decoration: none;
 		color: inherit;
+		height: 100%;
 	}
 	.row-media {
 		background: rgb(var(--bg));
-		height: 100%;
 	}
 	.row-media img {
 		width: 100%;
-		height: 100%;
+		aspect-ratio: 4 / 3;
 		object-fit: cover;
+		display: block;
+	}
+	.row-copy {
+		padding: 0.9rem 1rem 1rem;
+	}
+	.row-copy h2 {
+		margin: 0.45rem 0 0;
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: 1rem;
 	}
 	@media (max-width: 980px) {
 		.gallery-list {
