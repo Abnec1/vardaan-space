@@ -1,6 +1,8 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -9,12 +11,20 @@ export async function getStaticPaths() {
 		props: post,
 	}));
 }
-type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+const readingTime = `${Math.max(1, Math.ceil((post.body?.trim().split(/\s+/).filter(Boolean).length ?? 0) / 200))} min read`;
+const currentIndex = posts.findIndex((entry) => entry.id === post.id);
+const previousPost = currentIndex >= 0 && currentIndex < posts.length - 1 ? posts[currentIndex + 1] : undefined;
+const nextPost = currentIndex > 0 ? posts[currentIndex - 1] : undefined;
 ---
 
-<BlogPost {...post.data}>
+<BlogPost
+	{...post.data}
+	readingTime={readingTime}
+	previousPost={previousPost && { slug: previousPost.id, title: previousPost.data.title }}
+	nextPost={nextPost && { slug: nextPost.id, title: nextPost.data.title }}
+>
 	<Content />
 </BlogPost>
