@@ -16,6 +16,7 @@ type Props = CollectionEntry<'blog'>['data'] & {
 const { title, description, pubDate, updatedDate, readingTime, previousPost, nextPost } = Astro.props as Props;
 const images = getBlogImages(Astro.props as Props);
 const primaryImage = images[0];
+const hasMultipleImages = images.length > 1;
 ---
 
 <!doctype html>
@@ -29,16 +30,6 @@ const primaryImage = images[0];
 			article {
 				display: grid;
 				gap: 1.3rem;
-			}
-			.hero-image {
-				overflow: hidden;
-				border: 1px solid rgba(var(--border), 0.9);
-				border-radius: var(--radius);
-				box-shadow: var(--box-shadow);
-			}
-			.hero-image img {
-				display: block;
-				width: 100%;
 			}
 			.title {
 				padding: 1.1rem 1.2rem;
@@ -84,23 +75,97 @@ const primaryImage = images[0];
 				font-family: var(--font-heading);
 				font-weight: 700;
 			}
-			.hero-gallery {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-				gap: 0.8rem;
+			.media-shell {
+				position: relative;
 			}
-			.hero-image {
-				overflow: hidden;
+			.hero-carousel {
+				display: grid;
+				grid-auto-flow: column;
+				grid-auto-columns: 100%;
+				overflow-x: auto;
+				scroll-snap-type: x mandatory;
+				scroll-behavior: smooth;
+				scrollbar-width: none;
 				border: 1px solid rgba(var(--border), 0.9);
 				border-radius: var(--radius);
 				box-shadow: var(--box-shadow);
 				background: rgba(var(--surface), 0.96);
 			}
-			.hero-image img {
+			.hero-carousel::-webkit-scrollbar {
+				display: none;
+			}
+			.hero-slide {
+				position: relative;
+				scroll-snap-align: start;
+			}
+			.hero-link {
+				display: block;
+				overflow: hidden;
+				color: inherit;
+			}
+			.hero-link img {
 				display: block;
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
+			}
+			.hero-actions {
+				position: absolute;
+				right: 0.8rem;
+				bottom: 0.8rem;
+				display: flex;
+				gap: 0.45rem;
+				flex-wrap: wrap;
+			}
+			.hero-action,
+			.carousel-arrow,
+			.share-button {
+				border: 1px solid rgba(var(--border), 0.9);
+				background: rgba(var(--surface-2), 0.92);
+				color: rgb(var(--text));
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				font-size: 0.68rem;
+				text-decoration: none;
+				cursor: pointer;
+			}
+			.hero-action {
+				padding: 0.45rem 0.65rem;
+			}
+			.carousel-arrow {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 2.2rem;
+				height: 2.2rem;
+				display: grid;
+				place-items: center;
+				border-radius: 999px;
+				box-shadow: var(--box-shadow);
+				z-index: 1;
+			}
+			.carousel-arrow:disabled {
+				opacity: 0.45;
+				cursor: default;
+			}
+			.carousel-arrow.prev {
+				left: 0.75rem;
+			}
+			.carousel-arrow.next {
+				right: 0.75rem;
+			}
+			.share-button {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0.5rem 0.7rem;
+				margin: 0.55rem 0 0.25rem;
+			}
+			.share-status {
+				min-height: 1em;
+				margin: 0 0 0.75rem;
+				font-size: 0.78rem;
+				color: rgba(var(--muted), 0.95);
 			}
 			.post-nav {
 				display: grid;
@@ -142,6 +207,8 @@ const primaryImage = images[0];
 			<article>
 				<div class="title">
 					<h1>{title}</h1>
+					<button class="share-button" type="button" data-share-post>Share post</button>
+					<p class="share-status" data-share-status aria-live="polite"></p>
 					<p class="summary">{description}</p>
 					<p class="date">
 						<FormattedDate date={pubDate} />
@@ -157,17 +224,39 @@ const primaryImage = images[0];
 				</div>
 				{
 					primaryImage && (
-						<div class="hero-gallery">
-							{images.map((image, index) => (
-								<figure class="hero-image">
-									<Image
-										width={1020}
-										height={images.length > 1 ? 680 : 510}
-										src={image}
-										alt={index === 0 ? title : `${title} image ${index + 1}`}
-									/>
-								</figure>
-							))}
+						<div class="media-shell">
+							{hasMultipleImages && (
+								<button class="carousel-arrow prev" type="button" data-carousel-prev aria-label="Previous image">
+									←
+								</button>
+							)}
+							<div class="hero-carousel" data-carousel>
+								{images.map((image, index) => {
+									const fullRes = new URL(image.src, Astro.url).toString();
+									return (
+										<section class="hero-slide" data-carousel-slide>
+											<a class="hero-link" href={fullRes} target="_blank" rel="noreferrer">
+												<Image
+													width={1020}
+													height={images.length > 1 ? 680 : 510}
+													src={image}
+													alt={index === 0 ? title : `${title} image ${index + 1}`}
+												/>
+											</a>
+											<div class="hero-actions">
+												<a class="hero-action" href={fullRes} download>
+													Download
+												</a>
+											</div>
+										</section>
+									);
+								})}
+							</div>
+							{hasMultipleImages && (
+								<button class="carousel-arrow next" type="button" data-carousel-next aria-label="Next image">
+									→
+								</button>
+							)}
 						</div>
 					)
 				}
@@ -195,5 +284,37 @@ const primaryImage = images[0];
 			</article>
 		</main>
 		<Footer />
+		<script type="module">
+			const carousel = document.querySelector('[data-carousel]');
+			const prevButton = document.querySelector('[data-carousel-prev]');
+			const nextButton = document.querySelector('[data-carousel-next]');
+			const shareButton = document.querySelector('[data-share-post]');
+			const shareStatus = document.querySelector('[data-share-status]');
+
+			const setShareStatus = (message) => {
+				if (shareStatus) {
+					shareStatus.textContent = message;
+				}
+			};
+
+			prevButton?.addEventListener('click', () => {
+				if (!(carousel instanceof HTMLElement)) return;
+				carousel.scrollBy({ left: -carousel.clientWidth, behavior: 'smooth' });
+			});
+
+			nextButton?.addEventListener('click', () => {
+				if (!(carousel instanceof HTMLElement)) return;
+				carousel.scrollBy({ left: carousel.clientWidth, behavior: 'smooth' });
+			});
+
+			shareButton?.addEventListener('click', async () => {
+				try {
+					await navigator.clipboard.writeText(location.href);
+					setShareStatus('Post link copied.');
+				} catch {
+					setShareStatus('Copy failed. Use the URL in your address bar.');
+				}
+			});
+		</script>
 	</body>
 </html>
