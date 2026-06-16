@@ -2,7 +2,9 @@
 title: 'Three targets in one moonless window'
 description: 'How I planned a single short night to capture a nebula, a cluster, and a Milky Way foreground.'
 pubDate: 'May 05 2026'
-heroImage: '../../assets/blog-placeholder-4.jpg'
+images:
+  - '../../assets/jwst-deep-field.jpg'
+  - '../../assets/blog-placeholder-1.jpg'
 ---
 
 With only a few moonless hours available, I tested a strict target schedule instead of chasing whatever looked good in the moment.

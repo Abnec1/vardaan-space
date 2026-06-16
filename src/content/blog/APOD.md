@@ -2,7 +2,8 @@
 title: 'My first APOD submission'
 description: 'One of my first REAL astrophotography accomplishments. It represented a level up from just a kid looking through the eyepiece to an amatuer astronomer.'
 pubDate: 'May 24 2026'
-heroImage: '../../assets/apod.png'
+images:
+  - '../../assets/apod.png'
 ---
 
 This was quite long ago, about 2 years ago when I first got my 8" Schmidt Cassegrain and a T-Ring adapter for my D3200. Don't remember much, but this is probably about 50 images stacked and processed on PIPP and Registax, and saturation boosted on Photoshop.

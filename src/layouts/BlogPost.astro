@@ -5,6 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { getBlogImages } from '../lib/blog';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	readingTime: string;
@@ -12,13 +13,15 @@ type Props = CollectionEntry<'blog'>['data'] & {
 	nextPost?: { slug: string; title: string };
 };
 
-const { title, description, pubDate, updatedDate, heroImage, readingTime, previousPost, nextPost } = Astro.props as Props;
+const { title, description, pubDate, updatedDate, readingTime, previousPost, nextPost } = Astro.props as Props;
+const images = getBlogImages(Astro.props as Props);
+const primaryImage = images[0];
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} image={primaryImage} />
 		<style>
 			main {
 				width: min(1020px, calc(100% - 2rem));
@@ -81,85 +84,23 @@ const { title, description, pubDate, updatedDate, heroImage, readingTime, previo
 				font-family: var(--font-heading);
 				font-weight: 700;
 			}
-			.comments {
-				padding: 1.2rem 1.3rem;
-			}
-			.comments-head h2 {
-				margin-bottom: 0.4rem;
-			}
-			.muted {
-				margin: 0.3rem 0 0;
-				color: rgba(var(--muted), 0.9);
-				font-size: 0.9rem;
-			}
-			.comment-list {
-				margin-top: 1.2rem;
+			.hero-gallery {
 				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 				gap: 0.8rem;
 			}
-			.comment-card {
-				border: 1px solid rgba(var(--border), 0.8);
-				border-radius: 0;
-				padding: 0.8rem 0.9rem;
-				background: rgba(var(--surface-2), 0.75);
+			.hero-image {
+				overflow: hidden;
+				border: 1px solid rgba(var(--border), 0.9);
+				border-radius: var(--radius);
+				box-shadow: var(--box-shadow);
+				background: rgba(var(--surface), 0.96);
 			}
-			.comment-head {
-				display: flex;
-				justify-content: space-between;
-				gap: 0.6rem;
-				align-items: baseline;
-			}
-			.comment-name {
-				margin: 0;
-				font-size: 0.85rem;
-				text-transform: uppercase;
-				letter-spacing: 0.12em;
-			}
-			.comment-date {
-				margin: 0;
-				font-size: 0.75rem;
-				color: rgba(var(--muted), 0.85);
-			}
-			.comment-body {
-				margin: 0.6rem 0 0;
-			}
-			.empty {
-				margin: 0;
-				color: rgba(var(--muted), 0.9);
-			}
-			.comment-form {
-				margin-top: 1.3rem;
-				display: grid;
-				gap: 0.9rem;
-			}
-			label {
-				display: grid;
-				gap: 0.4rem;
-				font-size: 0.75rem;
-				letter-spacing: 0.16em;
-				text-transform: uppercase;
-				color: rgba(var(--muted), 0.85);
-			}
-			input,
-			textarea {
-				background: rgba(var(--surface-2), 0.85);
-				border: 1px solid rgba(var(--border), 0.8);
-				color: rgb(var(--text));
-				padding: 0.6rem 0.7rem;
-				border-radius: 0;
-				font-size: 0.95rem;
-			}
-			button {
-				justify-self: start;
-				padding: 0.6rem 1rem;
-				border-radius: 0;
-				border: 1px solid rgba(var(--accent), 0.9);
-				background: rgba(var(--accent), 0.2);
-				color: rgb(var(--text));
-				text-transform: uppercase;
-				letter-spacing: 0.12em;
-				font-size: 0.7rem;
-				cursor: pointer;
+			.hero-image img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
 			}
 			.post-nav {
 				display: grid;
@@ -214,37 +155,25 @@ const { title, description, pubDate, updatedDate, heroImage, readingTime, previo
 						}
 					</p>
 				</div>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
+				{
+					primaryImage && (
+						<div class="hero-gallery">
+							{images.map((image, index) => (
+								<figure class="hero-image">
+									<Image
+										width={1020}
+										height={images.length > 1 ? 680 : 510}
+										src={image}
+										alt={index === 0 ? title : `${title} image ${index + 1}`}
+									/>
+								</figure>
+							))}
+						</div>
+					)
+				}
 				<div class="prose">
 					<slot />
 				</div>
-				<section class="comments glass-card">
-					<div class="comments-head">
-						<p class="chip">Comments</p>
-						<h2>Discussion</h2>
-						<p class="muted">Comments are stored locally in your browser for this post.</p>
-					</div>
-					<div class="comment-list" data-comment-list>
-						<p class="empty">No comments yet. Be the first to log a response.</p>
-					</div>
-					<form class="comment-form" data-comment-form>
-						<label>
-							Callsign
-							<input name="name" type="text" autocomplete="name" required />
-						</label>
-						<label>
-							Email (optional)
-							<input name="email" type="email" autocomplete="email" />
-						</label>
-						<label>
-							Message
-							<textarea name="message" rows="4" required></textarea>
-						</label>
-						<button type="submit">Send comment</button>
-					</form>
-				</section>
 				<nav class="post-nav" aria-label="Post navigation">
 					{
 						previousPost && (
@@ -266,74 +195,5 @@ const { title, description, pubDate, updatedDate, heroImage, readingTime, previo
 			</article>
 		</main>
 		<Footer />
-		<script type="module">
-			const storageKey = `comments:${location.pathname}`;
-			const list = document.querySelector('[data-comment-list]');
-			const form = document.querySelector('[data-comment-form]');
-
-			const render = (comments) => {
-				if (!list) return;
-				list.innerHTML = '';
-				if (!comments.length) {
-					const empty = document.createElement('p');
-					empty.className = 'empty';
-					empty.textContent = 'No comments yet. Be the first to log a response.';
-					list.append(empty);
-					return;
-				}
-				comments.forEach((comment) => {
-					const card = document.createElement('div');
-					card.className = 'comment-card';
-
-					const head = document.createElement('div');
-					head.className = 'comment-head';
-
-					const name = document.createElement('p');
-					name.className = 'comment-name';
-					name.textContent = comment.name;
-
-					const date = document.createElement('p');
-					date.className = 'comment-date';
-					date.textContent = new Date(comment.timestamp).toLocaleDateString('en-US', {
-						month: 'short',
-						day: 'numeric',
-						year: 'numeric',
-					});
-
-					const body = document.createElement('p');
-					body.className = 'comment-body';
-					body.textContent = comment.message;
-
-					head.append(name, date);
-					card.append(head, body);
-					list.append(card);
-				});
-			};
-
-			const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
-			render(stored);
-
-			form?.addEventListener('submit', (event) => {
-				event.preventDefault();
-				const formData = new FormData(form);
-				const name = formData.get('name')?.toString().trim();
-				const message = formData.get('message')?.toString().trim();
-
-				if (!name || !message) return;
-
-				const next = [
-					...stored,
-					{
-						name,
-						message,
-						timestamp: Date.now(),
-					},
-				];
-				localStorage.setItem(storageKey, JSON.stringify(next));
-				stored.splice(0, stored.length, ...next);
-				form.reset();
-				render(next);
-			});
-		</script>
 	</body>
 </html>

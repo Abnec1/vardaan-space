@@ -2,7 +2,8 @@
 title: 'Sky log template I use after each session'
 description: 'A practical markdown template for recording weather, seeing, equipment, and post-processing notes.'
 pubDate: 'May 10 2026'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+images:
+  - '../../assets/blog-placeholder-3.jpg'
 ---
 
 After every clear night, I write one short post with the same structure so I can compare sessions quickly.

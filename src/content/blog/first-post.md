@@ -2,7 +2,9 @@
 title: 'First light with the 135mm lens'
 description: 'A short field report from my first clear-sky run with a fast prime for wide-field Milky Way work.'
 pubDate: 'May 02 2026'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+images:
+  - '../../assets/jwst-pillar.jpg'
+  - '../../assets/blog-placeholder-about.jpg'
 ---
 
 I finally got a clean forecast and took the 135mm lens out for a proper first-light run. The goal was simple: test framing workflow, evaluate star shape at the corners, and get repeatable focus fast.

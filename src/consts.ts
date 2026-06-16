@@ -16,6 +16,5 @@ export const CONTACT_LOCATION = 'Based in the UAE';
 
 export const SOCIAL_LINKS = [
 	{ label: 'Instagram', href: 'https://www.instagram.com/abnec_3/' },
-	{ label: 'X', href: 'https://x.com/Abn3c' },
 	{ label: 'GitHub', href: 'https://github.com/Abnec1' },
 ] as const;

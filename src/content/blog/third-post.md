@@ -2,7 +2,8 @@
 title: 'Processing notes: keeping star color alive'
 description: 'My lightweight post-processing sequence for boosting nebula contrast without crushing star color.'
 pubDate: 'May 09 2026'
-heroImage: '../../assets/blog-placeholder-2.jpg'
+images:
+  - '../../assets/blog-placeholder-2.jpg'
 ---
 
 I tend to overprocess when I'm excited about faint detail. This week I forced myself to use a compact sequence that protects star color first.
