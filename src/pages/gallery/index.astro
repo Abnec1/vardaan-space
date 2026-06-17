@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { getPrimaryBlogImage } from '../../lib/blog';
 
@@ -23,7 +22,7 @@ const gallery = (await getCollection('blog')).sort(
 			<section class="intro glass-card">
 				<p class="chip">Gallery</p>
 				<h1>Blog images</h1>
-				<p>Each image opens the blog post where it first appeared.</p>
+				<p>Click any image to open the matching post.</p>
 			</section>
 
 			<ul class="gallery-list">
@@ -35,13 +34,7 @@ const gallery = (await getCollection('blog')).sort(
 								<li class="gallery-row glass-card">
 									<a href={`/blog/${entry.id}/`} class="row-link">
 										<div class="row-media">
-											<Image src={image} alt={entry.data.title} width={1680} height={1120} />
-										</div>
-										<div class="row-copy">
-											<p class="chip">
-												<FormattedDate date={entry.data.pubDate} />
-											</p>
-											<h2>{entry.data.title}</h2>
+											<Image src={image} alt={entry.data.title} />
 										</div>
 									</a>
 								</li>
@@ -69,7 +62,6 @@ const gallery = (await getCollection('blog')).sort(
 		gap: clamp(0.7rem, 1.8vw, 1.2rem);
 	}
 	.gallery-row {
-		overflow: hidden;
 		transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
 	}
 	.gallery-row:hover {
@@ -78,28 +70,16 @@ const gallery = (await getCollection('blog')).sort(
 		border-color: rgba(var(--accent), 0.5);
 	}
 	.row-link {
-		display: grid;
+		display: block;
 		text-decoration: none;
 		color: inherit;
-		height: 100%;
 	}
 	.row-media {
 		background: rgb(var(--bg));
 	}
 	.row-media img {
-		width: 100%;
-		aspect-ratio: 4 / 3;
-		object-fit: cover;
 		display: block;
-	}
-	.row-copy {
-		padding: 0.9rem 1rem 1rem;
-	}
-	.row-copy h2 {
-		margin: 0.45rem 0 0;
-		font-family: var(--font-heading);
-		font-weight: 700;
-		font-size: 1rem;
+		width: 100%;
 	}
 	@media (max-width: 980px) {
 		.gallery-list {
