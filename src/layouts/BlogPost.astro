@@ -112,8 +112,7 @@ const hasMultipleImages = images.length > 1;
 				display: block;
 				width: 100%;
 				height: auto;
-				max-height: min(78vh, 920px);
-				object-fit: contain;
+				max-height: none;
 			}
 			.hero-actions {
 				position: absolute;
@@ -242,12 +241,7 @@ const hasMultipleImages = images.length > 1;
 									return (
 										<section class="hero-slide" data-carousel-slide>
 											<a class="hero-link" href={fullRes} target="_blank" rel="noreferrer">
-												<Image
-													width={1020}
-													height={images.length > 1 ? 680 : 510}
-													src={image}
-													alt={index === 0 ? title : `${title} image ${index + 1}`}
-												/>
+												<Image src={image} alt={index === 0 ? title : `${title} image ${index + 1}`} />
 											</a>
 											<div class="hero-actions">
 												<a class="hero-action" href={fullRes} download>

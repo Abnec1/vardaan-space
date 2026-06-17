@@ -40,9 +40,9 @@ const posts = (await getCollection('blog')).sort(
 				color: inherit;
 			}
 			.media img {
+				display: block;
 				width: 100%;
-				aspect-ratio: 16 / 10;
-				object-fit: cover;
+				height: auto;
 			}
 			.copy h2 {
 				margin-top: 0.6rem;
@@ -84,7 +84,7 @@ const posts = (await getCollection('blog')).sort(
 								return (
 									<li class="glass-card">
 										<a href={`/blog/${post.id}/`}>
-											<div class="media">{image && <Image width={920} height={560} src={image} alt={post.data.title} />}</div>
+											<div class="media">{image && <Image src={image} alt={post.data.title} />}</div>
 											<div class="copy">
 												<p class="chip">
 													<FormattedDate date={post.data.pubDate} />
