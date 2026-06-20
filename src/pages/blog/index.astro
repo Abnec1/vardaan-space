@@ -57,8 +57,15 @@ const posts = (await getCollection('blog')).sort(
 			}
 			.meta {
 				margin: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 0.25rem;
 				color: rgba(var(--muted), 0.95);
 				font-size: 0.9rem;
+			}
+			.read-post {
+				color: rgb(var(--text));
 			}
 			@media (max-width: 720px) {
 				li a {
@@ -93,7 +100,7 @@ const posts = (await getCollection('blog')).sort(
 												<p class="description">{post.data.description}</p>
 												<p class="meta">
 													<span>{getReadingTime(post.body)}</span>
-													<span>Read post →</span>
+													<span class="read-post">Read post →</span>
 												</p>
 											</div>
 										</a>
