@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
+import AboutHeroImage from '../assets/telescope.png';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -43,20 +43,20 @@ import { CONTACT_EMAIL, CONTACT_LOCATION, SOCIAL_LINKS } from '../consts';
 			<section class="details glass-card">
 				<div>
 					<p class="chip">Equipment</p>
-					<h2>Imaging stack</h2>
+					<h2>The Telescope</h2>
 					<ul>
-						<li>Tracking mount optimized for long exposures and polar alignment accuracy.</li>
-						<li>Wide-field refractor with corrected optics for sharp star fields.</li>
-						<li>Dedicated astro camera with calibrated darks, flats, and bias frames.</li>
+						<li>Celestron C8 Schmidt Cassegrain, about 10 years old.</li>
+						<li>Celestron AVX Mount, 10 years old, controlled with CPWI and NINA.</li>
+						<li>Nikon D32000 for deep-sky and lunar imaging, and the NexImage 10 for planetary imaging. Hoping to upgrade to a 585MC Air in the future.</li>
 					</ul>
 				</div>
 				<div>
 					<p class="chip">Workflow</p>
-					<h2>Capture to final</h2>
+					<h2>Imaging Workflow</h2>
 					<ul>
-						<li>Plan the target window, framing, and exposure length per session.</li>
-						<li>Capture calibrated subframes with consistent temperature and gain.</li>
-						<li>Stack, stretch, and refine color while preserving star shape and contrast.</li>
+						<li>Plan the target window, framing, and exposure length per session, also as per viewing conditions since I live in a very humid place.</li>
+						<li>Capture frames, say lunar, seperate and align using PIPP, stack using AutoStakkert.</li>
+						<li>Finally, wavelet sharpen in Registax, and boost contrast in Photoshop.</li>
 					</ul>
 				</div>
 			</section>
