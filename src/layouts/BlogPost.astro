@@ -6,6 +6,7 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { getBlogImages } from '../lib/blog';
+import Analytics from '@vercel/analytics/astro';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	readingTime: string;
